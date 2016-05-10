@@ -1,12 +1,18 @@
 var app = {};
 
 var express = require('express');
-var http = require('http');
+var fs = require('fs');
+var https = require('https');
+
+var options = {
+  key: fs.readFileSync('client-key.pem'),
+  cert: fs.readFileSync('client-cert.pem')
+};
 
 var port = 6080;
 
 var e = app.e = express();
-app.server = app.server = http.createServer(e);
+app.server = app.server = https.createServer(options, e);
 
 app.server.listen(port, function() {
 	console.log('Listening on port ' + port + '\n');
