@@ -1,27 +1,30 @@
-var app = {};
+var express = require('express')
+var bodyParser = require('body-parser')
+var request = require('request')
+var app = express()
 
-var express = require('express');
-var fs = require('fs');
-var https = require('https');
+app.set('port', (process.env.PORT || 5000))
 
-var options = {
-  key: fs.readFileSync('client-key.pem'),
-  cert: fs.readFileSync('client-cert.pem')
-};
+// Process application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}))
 
-var port = 6080;
+// Process application/json
+app.use(bodyParser.json())
 
-var e = app.e = express();
-app.server = app.server = https.createServer(options, e);
+// Index route
+app.get('/', function (req, res) {
+    res.send('Hello world, I am a chat bot')
+})
 
-app.server.listen(port, function() {
-	console.log('Listening on port ' + port + '\n');
-});
+// for Facebook verification
+app.get('/webhook/', function (req, res) {
+    if (req.query['hub.verify_token'] === 'my_voice_is_my_password_verify_me') {
+        res.send(req.query['hub.challenge'])
+    }
+    res.send('Error, wrong token')
+})
 
-e.get('/webhook/', function (req, res) {
-
-  if (req.query['hub.verify_token'] === 'monica') {
-    res.send(req.query['hub.challenge']);
-  }
-  res.send('Error, wrong validation token');
+// Spin up the server
+app.listen(app.get('port'), function() {
+    console.log('running on port', app.get('port'))
 })

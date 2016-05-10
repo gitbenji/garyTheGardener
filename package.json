@@ -1,7 +1,7 @@
 {
   "name": "gary_the_gardener",
   "version": "1.0.0",
-  "description": "Gardening bot for Monica",
+  "description": "Gardening bot",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,13 +11,15 @@
     "type": "git",
     "url": "git+https://github.com/gitbenji/garyTheGardener.git"
   },
-  "author": "Benji",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gitbenji/garyTheGardener/issues"
   },
   "homepage": "https://github.com/gitbenji/garyTheGardener#readme",
   "dependencies": {
-    "express": "^4.13.4"
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
+    "request": "^2.72.0"
   }
 }
